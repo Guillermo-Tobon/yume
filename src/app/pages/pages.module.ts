@@ -3,24 +3,30 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ProgressComponent } from './progress/progress.component';
-import { Grafica1Component } from './grafica1/grafica1.component';
 import { PagesComponent } from './pages.component';
 import { SharedModule } from '../shared/shared.module';
+import { RegistrarFacturasComponent } from './registrar-facturas/registrar-facturas.component';
+import { VerFacturasComponent } from './ver-facturas/ver-facturas.component';
+import { RegistrarTarjetasComponent } from './registrar-tarjetas/registrar-tarjetas.component';
+import { VerTarjetasComponent } from './ver-tarjetas/ver-tarjetas.component';
+import { DetallePagosComponent } from './detalle-pagos/detalle-pagos.component';
+import { DetalleCuentaComponent } from './detalle-cuenta/detalle-cuenta.component';
 
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    ProgressComponent,
-    Grafica1Component,
-    PagesComponent
+    PagesComponent,
+    RegistrarFacturasComponent,
+    VerFacturasComponent,
+    RegistrarTarjetasComponent,
+    VerTarjetasComponent,
+    DetallePagosComponent,
+    DetalleCuentaComponent
   ],
   exports: [
     DashboardComponent,
-    ProgressComponent,
-    Grafica1Component,
     PagesComponent
   ],
   imports: [ 
