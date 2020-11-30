@@ -48,4 +48,12 @@ Login register and recover password Page
 			right: 0px;
 			position: absolute;
 			height: 100%; }
+
+.logoPrincipal img{
+	width: 115px;
+}
+.btnVelapay{
+	background-color: #13de80;
+	border-color: #13de80;
+}
 	
