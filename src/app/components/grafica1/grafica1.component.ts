@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ChartType } from 'chart.js';
 import { MultiDataSet, Label, Color } from 'ng2-charts';
 
@@ -9,12 +9,9 @@ import { MultiDataSet, Label, Color } from 'ng2-charts';
 })
 export class Grafica1Component implements OnInit {
 
-  // Doughnut
-  public doughnutChartLabels: Label[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
-  public doughnutChartData: MultiDataSet = [
-    [350, 450, 100]
-  ];
-
+  @Input() titulo: string = 'No titulo';
+  @Input('labels') doughnutChartLabels: Label[];
+  @Input('Data1') doughnutChartData;
   public colors: Color[] = [
     { backgroundColor: ['#9E120E', '#FF5800', '#FFB414'] }
   ];

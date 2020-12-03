@@ -1,3 +1,9 @@
 <div class="row">
-  <app-grafica1></app-grafica1>
+  <div class="col-6">
+    <app-grafica1  titulo="Facturas Pagas" [labels]="lblGrafica1" [Data1]="Data1"></app-grafica1>
+  </div>
+
+  <div class="col-6">
+    <app-grafica2  titulo="Pagos realizados" [meses]="meses" [dataBarra]="DataBarra"></app-grafica2>
+  </div>
 </div>
