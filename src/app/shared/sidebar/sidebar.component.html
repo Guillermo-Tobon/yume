@@ -12,32 +12,33 @@
           <ul aria-expanded="false" class="collapse">
             <li><a href="javascript:void()">Mi Cuenta </a></li>
             <li><a href="javascript:void()">Mis Balances</a></li>
-            <li><a href="javascript:void()">Inbox</a></li>
-            <li><a href="javascript:void()">Cerrar Sesión </a></li>
+            <li><a routerLink="/login">Cerrar Sesión </a></li>
           </ul>
         </li>
         <li class="nav-devider"></li>
         <li class="nav-small-cap">PERSONAL</li>
-        <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Mis Servicios <span class="label label-rouded label-themecolor pull-right">14</span></span></a>
+        <li> <a class="has-arrow waves-effect waves-dark" routerLink="/"><i class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard <span class="label label-rouded label-themecolor pull-right">14</span></span></a>
+        </li>
+        <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Mis Servicios</span></a>
           <ul aria-expanded="false" class="collapse">
-            <li><a href="#">Registrar Factura </a></li>
-            <li><a href="#">Ver mis Facturas</a></li>
+            <li><a routerLink="registrar-facturas">Registrar Factura </a></li>
+            <li><a routerLink="ver-facturas">Ver mis Facturas</a></li>
           </ul>
         </li>
         <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-bullseye"></i><span class="hide-menu">Mis Métodos de Pago</span></a>
           <ul aria-expanded="false" class="collapse">
-            <li><a href="#">Registrar Tarjeta</a></li>
-            <li><a href="#">Ver mis Tarjetas</a></li>
+            <li><a routerLink="registrar-tarjetas">Registrar Tarjeta</a></li>
+            <li><a routerLink="ver-tarjetas">Ver mis Tarjetas</a></li>
           </ul>
         </li>
         <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-email"></i><span class="hide-menu">Suscripción VelaPay</span></a>
           <ul aria-expanded="false" class="collapse">
-            <li><a href="#">Detalle de mis Pagos</a></li>
+            <li><a routerLink="detalle-pagos">Detalle de mis Pagos</a></li>
           </ul>
         </li>
         <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Mi Cuenta <span class="label label-rouded label-danger pull-right">25</span></span></a>
           <ul aria-expanded="false" class="collapse">
-            <li><a href="ui-cards.html">Detalle de mi Cuenta</a></li>
+            <li><a routerLink="detalle-cuenta">Detalle de mi Cuenta</a></li>
           </ul>
         </li>
       </ul>
