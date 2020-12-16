@@ -12,6 +12,7 @@ import { RegistrarTarjetasComponent } from './registrar-tarjetas/registrar-tarje
 import { VerTarjetasComponent } from './ver-tarjetas/ver-tarjetas.component';
 import { DetallePagosComponent } from './detalle-pagos/detalle-pagos.component';
 import { DetalleCuentaComponent } from './detalle-cuenta/detalle-cuenta.component';
+import { PerfilComponent } from './perfil/perfil.component';
 
 
 
@@ -24,7 +25,8 @@ import { DetalleCuentaComponent } from './detalle-cuenta/detalle-cuenta.componen
     RegistrarTarjetasComponent,
     VerTarjetasComponent,
     DetallePagosComponent,
-    DetalleCuentaComponent
+    DetalleCuentaComponent,
+    PerfilComponent
   ],
   exports: [
     DashboardComponent,

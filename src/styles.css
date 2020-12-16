@@ -7,3 +7,12 @@
 .logoDashboard img{
   width: 160px;
 }
+.cursor{
+  cursor: pointer;
+}
+.cursorSidebar{
+  cursor: pointer;
+}
+.cursorSidebar:hover{
+  color: white !important;
+}
