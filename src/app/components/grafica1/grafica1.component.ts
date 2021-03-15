@@ -13,7 +13,7 @@ export class Grafica1Component implements OnInit {
   @Input('labels') doughnutChartLabels: Label[];
   @Input('Data1') doughnutChartData;
   public colors: Color[] = [
-    { backgroundColor: ['#9E120E', '#FF5800', '#FFB414'] }
+    { backgroundColor: ['#7fd5d5', '#0eb4ff', '#8cff4a'] }
   ];
 
   constructor() { }

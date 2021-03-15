@@ -6,6 +6,7 @@ import { PagesRoutingModule } from './pages/pages.routing';
 import { AuthRoutingModule } from './auth/auth.routing';
 
 import { NotpagefoundComponent } from './notpagefound/notpagefound.component';
+import { CommonModule } from '@angular/common';
 
 const routes: Routes = [
 
@@ -19,6 +20,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [],
   imports: [
+    CommonModule,
     RouterModule.forRoot(routes),
     PagesRoutingModule,
     AuthRoutingModule

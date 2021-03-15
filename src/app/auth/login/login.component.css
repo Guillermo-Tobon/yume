@@ -55,5 +55,30 @@ Login register and recover password Page
 .btnVelapay{
 	background-color: #13de80;
 	border-color: #13de80;
+	font-size: 15px;
+  padding: 8px;
+}
+.contBtnLogin .notify{
+	top: -21px;
+  width: 55%;
+}
+.contBtnLogin .notify .heartbit{
+	top: -16px;
+	right: -1px;
+	height: 35px;
+	width: 35px;
+}
+.contBtnLogin .notify .point{
+	background-color: #13de80;
+	width: 22px;
+  height: 22px;
+}
+
+
+
+@media screen and (max-width: 520px){
+	.login-box{
+		width: 300px;
+	}
 }
 	

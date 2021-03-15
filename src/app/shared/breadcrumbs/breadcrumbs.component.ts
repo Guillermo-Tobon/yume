@@ -18,7 +18,7 @@ export class BreadcrumbsComponent implements OnInit, OnDestroy {
 
     this.tituloSubs = this.getArgumentosRuta().subscribe( data =>{
       this.titulo = data.titulo;
-      document.title = `VelaPay - ${data.titulo}`;
+      document.title = `YuMe - ${data.titulo}`;
     })
 
    }

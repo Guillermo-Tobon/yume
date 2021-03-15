@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
@@ -11,23 +12,13 @@ import Swal from 'sweetalert2';
 export class HeaderComponent implements OnInit {
 
   public dataInfoUser:any[] = [];
-  public avatar: string = environment.base_url; 
-  public email:string = '';
-  public nombre:string = '';
   
 
-  constructor( private usuarioSrv: UsuarioService ) { }
+  constructor( private authSrv: AuthService ) { }
 
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.dataInfoUser = JSON.parse(localStorage.getItem('infoUsuario'));
-      
-      this.avatar = `${this.avatar}/${this.dataInfoUser['infoUserDB'][0]['usuario']['img']}`;
-      this.email = this.dataInfoUser['infoUserDB'][0]['usuario']['email'];
-      this.nombre = this.dataInfoUser['infoUserDB'][0]['usuario']['nombre'];
-    }, 500);
-
+    this.dataInfoUser = this.authSrv.usuario;
   }
 
 
@@ -46,7 +37,7 @@ export class HeaderComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire('Sesión Cerrada!','Te esperamos pronto.','success');
-        setTimeout(() => { this.usuarioSrv.logoutServices(); }, 1000);
+        setTimeout(() => { this.authSrv.logoutService(); }, 1000);
       }
     });
   }

@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
 
   public formSubmitted = false;
+  public completeInfo:boolean = false;
 
   public registerForm = this.fb.group({
     nombre: ['', [ Validators.required, Validators.minLength(6) ]],
@@ -47,17 +48,38 @@ export class RegisterComponent implements OnInit {
     if ( this.registerForm.get('terminos').value ) {
       
       //Realizar la creación de usuario
-      await this.usuarioSrv.crearUsuarioServices( this.registerForm.value ).subscribe( resp =>{
-
-        this.usuarioSrv.crearInfoUsuarioService( resp.token ).subscribe( data => {
-          console.log(data);
-        });
+      // await this.usuarioSrv.crearUsuarioServices( this.registerForm.value ).subscribe( resp =>{
         
-        this.router.navigateByUrl('/')
+      //   if ( resp.ok ) {
+      //     this.usuarioSrv.crearInfoUsuarioService( resp.token ).subscribe( data => {
+          
+      //       if ( data['ok'] ) {
+      //         this.usuarioSrv.getInfoUserService(resp.usuario.uid, resp.token).subscribe( data2 =>{
+  
+      //           this.completeInfo = data2.infoUserDB[0].usuario.completeInfo;
+      //           if ( this.completeInfo ) {
+      //             Swal.fire('Hola!', data2.infoUserDB[0].usuario.nombre, 'success');
+                  
+      //           } else {
+      //             Swal.fire('Hola!', data2.infoUserDB[0].usuario.nombre+'. Por favor no olvides completar tu cuenta para poder utilizar por completo VelaPay.', 'success');
+      //           }
+                
+      //           this.router.navigateByUrl('/');
+      //         })
+      //       } else {
+      //         Swal.fire('Lo sentimos!', 'En este momento no puedes registrarte. Inténtalo más tarde.', 'warning');
+      //         return;
+      //       }
+            
+      //     });
+      //   } else {
+      //     Swal.fire('Lo sentimos!', 'En este momento no puedes registrarte. Inténtalo más tarde.', 'warning');
+      //     return;
+      //   }
         
-      }, ( err ) =>{
-        Swal.fire('Error', err.error.msg, 'error');
-      });
+      // }, ( err ) =>{
+      //   Swal.fire('Error', err.error.msg, 'error');
+      // });
     }
 
   }

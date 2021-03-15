@@ -1,0 +1,23 @@
+<div class="row el-element-overlay">
+  <div class="col-md-12">
+    <h4 class="card-title">Todos los pagos registrados</h4>
+    <h6 class="card-subtitle m-b-20 text-muted">Puede visualizar la información de cada pago dando click en el ID del pago. </h6>
+  </div>
+  <div *ngFor=" let pago of pagos " class="col-lg-6 col-md-6">
+    <div class="ribbon-wrapper card">
+      <div (click)="navegarVerCredito(pago.id_us)" *ngIf=" pago.estado_cred == 1 " class="cursor ribbon ribbon-success">{{pago.id_cred}}</div>
+      <div (click)="navegarVerCredito(pago.id_us)" *ngIf=" pago.estado_cred == 0 " class="cursor ribbon ribbon-danger">{{pago.id_cred}}</div>
+      <div class="activity-item">
+        <div class="round m-r-20"><img src="../../../assets/images/pay.png" alt="user" width="50"></div>
+        <div class="m-t-10">
+          <h5 class="m-b-0 font-medium">{{pago.valor_pag | currency: 'USD' }} <span class="text-muted font-14 m-l-10">| &nbsp; {{pago.fecha_pag | date: 'dd/MM/yyyy' }} </span></h5>
+          <h6 class="text-muted"> {{pago.nombre_us}} &nbsp;
+            <span *ngIf=" pago.estado_cred == 1 " class="label label-success">Crédito Activo</span>
+            <span *ngIf=" pago.estado_cred == 0 " class="label label-danger">Crédito Inactivo</span>
+          </h6>
+        </div>
+      </div>
+      <p class="ribbon-content"> {{pago.comentario_pag}} </p>
+    </div>
+  </div>
+</div>

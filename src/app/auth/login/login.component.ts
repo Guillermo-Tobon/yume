@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginForm } from 'src/app/interfaces/login-form.interface';
+import { AuthService } from 'src/app/services/auth.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import Swal from 'sweetalert2';
 
@@ -13,58 +15,86 @@ export class LoginComponent implements OnInit {
 
   public formSubmitted = false;
   public completeInfo:boolean = false;
-
-  public loginForm = this.fb.group({
-    email: [ localStorage.getItem('remember') || '', [ Validators.required, Validators.email ]],
-    password: ['', [ Validators.required, Validators.minLength(8) ]],
-    remember: [false]
-  });
+  public esperando:boolean = false;
+  public loginForm:FormGroup;
 
   constructor( 
               private router: Router,
               private fb: FormBuilder,
-              private usuarioSrv: UsuarioService 
+              private authServ: AuthService 
               ) { }
 
   ngOnInit(): void {
+    //Iniciar formulario
+    this.iniciarFormulario();
   }
 
 
   /**
    * Método para iniciar sesión
    */
-  public Login = async() =>{
+  public login = () =>{
+    this.formSubmitted = true;
 
-    await this.usuarioSrv.loginServices( this.loginForm.value ).subscribe( resp =>{
+    if ( this.loginForm.invalid ) {
+      return; 
+    }
 
-      //Obtenemos la información del usuario logueado
-      this.usuarioSrv.getInfoUserService( resp.usuarioDB.uid, resp.token ).subscribe( data =>{
-        
-        this.completeInfo = data.infoUserDB[0].usuario.completeInfo;
-        if ( this.completeInfo ) {
-          Swal.fire('Hola!', data.infoUserDB[0].usuario.nombre, 'success');
-          
-        } else {
-          Swal.fire('Hola!', data.infoUserDB[0].usuario.nombre+'. Por favor no olvides completar tu cuenta para poder utilizar por completo VelaPay.', 'success');
-        }
-
-      });
+    this.esperando = true;
+    this.authServ.loginService( this.loginForm.value ).subscribe( resp =>{
       
-      if( this.loginForm.get('remember').value ){
-        localStorage.setItem('remember', this.loginForm.get('email').value);
-        
-      } else {
-        localStorage.removeItem('remember');
-      }
-
+      this.guardaLocalStorage(this.loginForm.value);
+      this.esperando = false;
       this.router.navigateByUrl('/');
-
-    }, ( err ) =>{
+      
+      
+    }, (err) =>{
+      //En caso de un error
       Swal.fire('Error', err.error.msg, 'error');
+      this.esperando = false;
+    })
+  }
+
+
+
+  /**
+   * Método para validar los campos del form
+   * @param campo => Valor del campo
+   */
+  public campoNoValido = (campo:any): boolean =>{
+    if ( this.loginForm.get(campo).invalid && this.formSubmitted ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+
+
+  public iniciarFormulario = () =>{
+    this.loginForm = this.fb.group({
+      email: [ localStorage.getItem('email') || '', [ Validators.required, Validators.email ]],
+      password: ['', [ Validators.required, Validators.minLength(8) ]],
+      remember: [false]
     });
   }
 
 
+
+  /**
+   * Método para guardar el localstorage
+   * @param formData => Data del formulario login
+   */
+  public guardaLocalStorage = (formData:LoginForm) => {
+    
+    if ( formData.remember ) {
+      localStorage.setItem('email', formData.email );
+      localStorage.setItem('remember', JSON.stringify(formData.remember) );
+    } else {
+      localStorage.removeItem('email');
+      localStorage.removeItem('remember');
+    }
+  }
 
 
 }
