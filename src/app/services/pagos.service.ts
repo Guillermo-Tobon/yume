@@ -43,7 +43,7 @@ export class PagosService {
 
 
   /**
-   * Método de servicio para obtener los pagos por ID
+   * Método de servicio para obtener los pagos
    */
   public getAllPagosService = () =>{
 

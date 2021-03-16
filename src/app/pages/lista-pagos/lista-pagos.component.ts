@@ -9,12 +9,16 @@ import { PagosService } from 'src/app/services/pagos.service';
 export class ListaPagosComponent implements OnInit {
 
   public pagos:any[] = [];
+  public finanzas:any[] = [];
+  public totalPagos:number = 0;
 
   constructor(
               private pagosServ: PagosService
   ) { }
 
   ngOnInit(): void {
+    this.finanzas = JSON.parse( localStorage.getItem('finanzas') ) || [];
+
     this.getAllPagos();
   }
 
@@ -27,7 +31,9 @@ export class ListaPagosComponent implements OnInit {
     this.pagosServ.getAllPagosService().subscribe( (resp:any) =>{
 
       this.pagos = resp.pagos || [];
-      console.log(this.pagos)
+      this.pagos.forEach( pag =>{
+        this.totalPagos += pag.valor_pag;
+      })
 
     }, (err) =>{
       console.log(err)
