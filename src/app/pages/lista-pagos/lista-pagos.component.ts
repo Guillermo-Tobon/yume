@@ -42,6 +42,11 @@ export class ListaPagosComponent implements OnInit {
   }
 
 
+  public navegarVerCredito = () =>{
+    
+  }
+
+
 
 
 }

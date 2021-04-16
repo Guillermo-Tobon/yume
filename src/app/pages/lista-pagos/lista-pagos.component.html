@@ -43,8 +43,8 @@
         <div class="m-t-10">
           <h5 class="m-b-0 font-medium">{{pago.valor_pag | currency: 'USD' }} <span class="text-muted font-14 m-l-10">| &nbsp; {{pago.fecha_pag | date: 'dd/MM/yyyy' }} </span></h5>
           <h6 class="text-muted"> {{pago.nombre_us}} &nbsp;
-            <span *ngIf=" pago.estado_cred == 1 " class="label label-success">Crédito Activo</span>
-            <span *ngIf=" pago.estado_cred == 0 " class="label label-danger">Crédito Inactivo</span>
+            <span *ngIf=" pago.estado_cred == 1 " class="label label-success">Crédito Abierto</span>
+            <span *ngIf=" pago.estado_cred == 0 " class="label label-danger">Crédito Pagado</span>
           </h6>
         </div>
       </div>
