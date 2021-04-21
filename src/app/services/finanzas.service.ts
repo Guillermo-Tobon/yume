@@ -96,7 +96,15 @@ export class FinanzasService {
    */
   public updateIngresoService = (formData:any) =>{
 
-    return this.http.put(`${BASE_URL}/updateIngreso`, formData, this.httpOptions).pipe(
+    const json = {
+      comentario: formData.comentario,
+      fecha: formData.fecha,
+      idIngreso: formData.idIngreso,
+      valor: formData.valor,
+      pagoCredito: formData.pagoCredito == true? 1: 0
+    }
+
+    return this.http.put(`${BASE_URL}/updateIngreso`, json, this.httpOptions).pipe(
       tap( resp => resp )
     )
 
@@ -109,7 +117,15 @@ export class FinanzasService {
    */
   public updateEgresoService = (formData:any) =>{
 
-    return this.http.put(`${BASE_URL}/updateEgreso`, formData, this.httpOptions).pipe(
+    const json = {
+      comentario: formData.comentario,
+      fecha: formData.fecha,
+      idEgreso: formData.idEgreso,
+      valor: formData.valor,
+      prestamo: formData.prestamo == true? 1: 0
+    }
+
+    return this.http.put(`${BASE_URL}/updateEgreso`, json, this.httpOptions).pipe(
       tap( resp => resp )
     )
 

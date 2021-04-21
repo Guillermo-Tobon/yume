@@ -65,6 +65,7 @@ export class ListaIngresosComponent implements OnInit {
       idFina: this.finanza[0].id_fina,
       valor: this.formCrearIngreso.get('valor').value,
       comentario: this.formCrearIngreso.get('comentario').value,
+      pagoCredito: this.formCrearIngreso.get('pagoCredito').value == true? 1 : 0
     }
     this.finanzasServ.insertIngresosService(json).subscribe( (resp:any) =>{
 
@@ -85,6 +86,7 @@ export class ListaIngresosComponent implements OnInit {
     this.formCrearIngreso = this.fb.group({
       valor: ['', [Validators.required, Validators.minLength(3)]],
       comentario: ['', [Validators.required, Validators.minLength(5)]],
+      pagoCredito: [],
     })
 
     this.formEditarIngreso = this.fb.group({
@@ -92,6 +94,7 @@ export class ListaIngresosComponent implements OnInit {
       fecha: ['', [Validators.required]],
       comentario: ['', [Validators.required, Validators.minLength(5)]],
       idIngreso: ['', [Validators.required]],
+      pagoCredito: [],
     })
   }
 
@@ -108,6 +111,7 @@ export class ListaIngresosComponent implements OnInit {
       fecha: [fecha[0], [Validators.required]],
       comentario: [ingreso.comentario_ingre, [Validators.required, Validators.minLength(5)]],
       idIngreso: [ingreso.id_ingre, [Validators.required]],
+      pagoCredito: [ingreso.pago_credito_ingre == 1? true: false],
     })
 
   }
@@ -121,7 +125,7 @@ export class ListaIngresosComponent implements OnInit {
 
     this.finanzasServ.updateIngresoService(this.formEditarIngreso.value).subscribe( (resp:any) =>{
 
-      Swal.fire('Buen!', resp.msg, 'success');
+      Swal.fire('Bien!', resp.msg, 'success');
       setTimeout(() => { window.location.reload() }, 1500);
 
     }, (err) =>{

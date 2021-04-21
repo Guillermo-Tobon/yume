@@ -22,17 +22,20 @@
           <table class="table color-table warning-table">
             <thead>
                 <tr>
-                    <th># Ingreso</th>
-                    <th>Valor ingreso</th>
+                    <th>Ingreso</th>
+                    <th>Valor</th>
+                    <th>Tipo</th>
                     <th>Comentario</th>
-                    <th>Fecha ingreso</th>
+                    <th>Fecha</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor=" let ingreso of ingresos " >
-                    <td> {{ingreso.id_ingre}} </td>
+                    <td> {{ingreso.id_ingre}}</td>
                     <td> {{ingreso.valor_ingre | currency: 'USD'}} </td>
+                    <td *ngIf="ingreso.pago_credito_ingre == 1" ><small class="label label-primary tipoIngre">Crédito</small></td>
+                    <td *ngIf="ingreso.pago_credito_ingre == 0" ><small class="label label-warning tipoIngre">Ingreso</small></td>
                     <td> {{ingreso.comentario_ingre}} </td>
                     <td> {{ingreso.fecha_ingre | date: 'dd/MM/yyyy'}} </td>
                     <td style="display: flex;">
@@ -88,6 +91,15 @@
                 <p class="text-danger" *ngIf="campoNoValido('comentario')">*Comentario requerido.</p>
               </div>
             </div>
+
+            <div class="col-lg-12">
+              <div class="form-group">
+                <div class="demo-checkbox">
+                  <input type="checkbox" formControlName="pagoCredito" id="md_checkbox_31" class="filled-in chk-col-light-green">
+                  <label for="md_checkbox_31">¿Pago a crédito? <small class="text-muted">Seleccione este campo si el ingreso es de un pago a un crédito. </small></label>
+                </div>
+              </div>
+            </div>
           </div>
       </div>
       <div class="modal-footer">
@@ -135,6 +147,15 @@
               <div class="form-group">
                 <label>Comentario</label>
                 <textarea name="" formControlName="comentario" class="form-control" rows="2"></textarea>
+              </div>
+            </div>
+
+            <div class="col-lg-12">
+              <div class="form-group">
+                <div class="demo-checkbox">
+                  <input type="checkbox" formControlName="pagoCredito" id="md_checkbox_32" class="filled-in chk-col-light-green">
+                  <label for="md_checkbox_32">¿Pago a crédito? <small class="text-muted">Seleccione este campo si el ingreso es de un pago a un crédito. </small></label>
+                </div>
               </div>
             </div>
           </div>

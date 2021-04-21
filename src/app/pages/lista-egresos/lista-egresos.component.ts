@@ -68,6 +68,7 @@ export class ListaEgresosComponent implements OnInit {
       idFina: this.finanza[0].id_fina,
       valor: this.formCrearEgreso.get('valor').value,
       comentario: this.formCrearEgreso.get('comentario').value,
+      prestamo: this.formCrearEgreso.get('prestamo').value == true? 1 : 0
     }
     this.finanzasServ.insertEgresosService(json).subscribe( (resp:any) =>{
 
@@ -89,7 +90,7 @@ export class ListaEgresosComponent implements OnInit {
 
     this.finanzasServ.updateEgresoService(this.formEditarEgreso.value).subscribe( (resp:any) =>{
 
-      Swal.fire('Buen!', resp.msg, 'success');
+      Swal.fire('Bien!', resp.msg, 'success');
       setTimeout(() => { window.location.reload() }, 1500);
 
     }, (err) =>{
@@ -140,6 +141,7 @@ export class ListaEgresosComponent implements OnInit {
       fecha: [fecha[0], [Validators.required]],
       comentario: [egreso.comentario_egre, [Validators.required, Validators.minLength(5)]],
       idEgreso: [egreso.id_egre, [Validators.required]],
+      prestamo: [egreso.prestamo_egre == 1? true: false]
     })
 
   }
@@ -153,6 +155,7 @@ export class ListaEgresosComponent implements OnInit {
     this.formCrearEgreso = this.fb.group({
       valor: ['', [Validators.required, Validators.minLength(3)]],
       comentario: ['', [Validators.required, Validators.minLength(5)]],
+      prestamo: []
     })
 
     this.formEditarEgreso = this.fb.group({
@@ -160,6 +163,7 @@ export class ListaEgresosComponent implements OnInit {
       fecha: ['', [Validators.required]],
       comentario: ['', [Validators.required, Validators.minLength(5)]],
       idEgreso: ['', [Validators.required]],
+      prestamo: []
     })
   }
 
