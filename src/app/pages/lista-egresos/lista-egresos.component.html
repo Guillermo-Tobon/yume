@@ -18,6 +18,27 @@
   <div class="col-lg-12">
     <div class="card">
       <div class="card-body">
+        <!-- Formulario para filtrar por fechas -->
+        <h4 class="card-title">Filtre los egresos por fechas</h4>
+        <form [formGroup]="formFiltroFechas" (submit)="consultarFechasEgresos()" class="form-material m-t-40">
+          <div class="row">
+            <div class="col-lg-5 col-md-5 col-sm-4">
+              <div class="form-group">
+                <label>Fecha inicial</label>
+                <input type="date" formControlName="fechaInicio" class="form-control">
+              </div>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-4">
+              <div class="form-group">
+                <label>Fecha final</label>
+                <input type="date" formControlName="fechaFin" class="form-control">
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-4">
+              <button type="submit" class="btn waves-effect waves-light btn-rounded btn-success m-t-30 m-b-20">Filtrar Egreso</button>
+            </div>
+          </div>
+        </form>
         <div class="table-responsive">
           <table class="table color-table success-table">
             <thead>

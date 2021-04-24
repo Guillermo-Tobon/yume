@@ -16,7 +16,9 @@ export class ListaEgresosComponent implements OnInit {
   public egresos:any[] = [];
   public formCrearEgreso:FormGroup;
   public formEditarEgreso:FormGroup;
+  public formFiltroFechas:FormGroup;
   public formSubmitted:boolean = false;
+  public idUsuario:any;
 
   constructor(
               private routeActive: ActivatedRoute,
@@ -31,7 +33,9 @@ export class ListaEgresosComponent implements OnInit {
     
     this.finanza = JSON.parse(localStorage.getItem('finanzas')) || [];
 
-    this.getEgresosById(this.finanza[0].id_us);
+    this.idUsuario = this.finanza[0].id_us;
+
+    this.getEgresosById(this.idUsuario);
     this.inicarFormulario();
   }
 
@@ -165,6 +169,43 @@ export class ListaEgresosComponent implements OnInit {
       idEgreso: ['', [Validators.required]],
       prestamo: []
     })
+
+    this.formFiltroFechas = this.fb.group({
+      fechaInicio: ['', [Validators.required]],
+      fechaFin: ['', [Validators.required]],
+    })
+  }
+
+
+  /**
+   * Método para consultar ingresos por fechas
+   */
+   public consultarFechasEgresos = () =>{
+
+    if ( this.formFiltroFechas.invalid ) {
+      return;
+    }
+
+    if (this.formFiltroFechas.get('fechaInicio').value >= this.formFiltroFechas.get('fechaFin').value) {
+      Swal.fire('Error!', 'Hay un problema con las fechas.','error');
+      return;
+    }
+
+    this.finanzasServ.filterFechasEgreService(this.idUsuario, this.formFiltroFechas.value).subscribe( (resp:any) =>{
+
+      
+      this.egresos = resp.egresos || [];
+
+    }, (err) =>{ 
+      if (err.error.error === 'No hay registros.') {
+        Swal.fire('Error!', err.error.error,'error');
+      } else{
+        Swal.fire('Error!', err.error.msg,'error');
+
+      }
+    })
+
+
   }
 
 

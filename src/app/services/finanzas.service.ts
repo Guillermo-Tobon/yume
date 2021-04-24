@@ -157,4 +157,42 @@ export class FinanzasService {
 
   }
 
+
+  /**
+   * Método de servicio para consultar ingresos por fechas
+   * @param formData => Datos con las fechas 
+   */
+  public filterFechasIngreService = (idUser:any, formData:any) =>{
+
+    const json = {
+      fechaInicio: formData.fechaInicio,
+      fechaFin: formData.fechaFin,
+      idUs: idUser
+    }
+
+    return this.http.post(`${BASE_URL}/filterFechasIngre`, json, this.httpOptions).pipe(
+      map( resp => resp )
+    )
+  }
+
+
+  /**
+   * Método de servicio para consultar egresos por fechas
+   * @param formData => Datos con las fechas 
+   */
+   public filterFechasEgreService = (idUser:any, formData:any) =>{
+
+    const json = {
+      fechaInicio: formData.fechaInicio,
+      fechaFin: formData.fechaFin,
+      idUs: idUser
+    }
+
+    return this.http.post(`${BASE_URL}/filterFechasEgre`, json, this.httpOptions).pipe(
+      map( resp => resp )
+    )
+  }
+
+
+
 }

@@ -17,7 +17,9 @@ export class ListaIngresosComponent implements OnInit {
   public ingresos:any[] = [];
   public formCrearIngreso:FormGroup;
   public formEditarIngreso:FormGroup;
+  public formFiltroFechas:FormGroup;
   public formSubmitted:boolean = false;
+  public idUsuario:any;
 
   constructor(
               private finanzasServ: FinanzasService,
@@ -31,7 +33,9 @@ export class ListaIngresosComponent implements OnInit {
     
     this.finanza = JSON.parse(localStorage.getItem('finanzas')) || [];
 
-    this.getIngresosById(this.finanza[0].id_us);
+    this.idUsuario = this.finanza[0].id_us;
+
+    this.getIngresosById(this.idUsuario);
     this.iniciarFormulario();
   }
 
@@ -95,6 +99,11 @@ export class ListaIngresosComponent implements OnInit {
       comentario: ['', [Validators.required, Validators.minLength(5)]],
       idIngreso: ['', [Validators.required]],
       pagoCredito: [],
+    })
+
+    this.formFiltroFechas = this.fb.group({
+      fechaInicio: ['', [Validators.required]],
+      fechaFin: ['', [Validators.required]],
     })
   }
 
@@ -175,6 +184,38 @@ export class ListaIngresosComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+
+  /**
+   * Método para consultar ingresos por fechas
+   */
+  public consultarFechasIngresos = () =>{
+
+    if ( this.formFiltroFechas.invalid ) {
+      return;
+    }
+
+    if (this.formFiltroFechas.get('fechaInicio').value >= this.formFiltroFechas.get('fechaFin').value) {
+      Swal.fire('Error!', 'Hay un problema con las fechas.','error');
+      return;
+    }
+
+    this.finanzasServ.filterFechasIngreService(this.idUsuario, this.formFiltroFechas.value).subscribe( (resp:any) =>{
+
+      
+      this.ingresos = resp.ingresos || [];
+
+    }, (err) =>{ 
+      if (err.error.error === 'No hay registros.') {
+        Swal.fire('Error!', err.error.error,'error');
+      } else{
+        Swal.fire('Error!', err.error.msg,'error');
+
+      }
+    })
+
+
   }
 
 

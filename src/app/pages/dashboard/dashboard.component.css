@@ -63,6 +63,11 @@ Progress bar
   font-size: 19px;
 }
 
+.tablaClientes{
+  height: 310px;
+  overflow-y: scroll;
+}
+
 @-webkit-keyframes myanimation {
   from {
     width: 0; } }

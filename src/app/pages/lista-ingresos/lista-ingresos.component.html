@@ -18,33 +18,53 @@
   <div class="col-lg-12">
     <div class="card">
       <div class="card-body">
+        <!-- Formulario para filtrar por fechas -->
+        <h4 class="card-title">Filtre los ingresos por fechas</h4>
+        <form [formGroup]="formFiltroFechas" (submit)="consultarFechasIngresos()" class="form-material m-t-40">
+          <div class="row">
+            <div class="col-lg-5 col-md-5 col-sm-4">
+              <div class="form-group">
+                <label>Fecha inicial</label>
+                <input type="date" formControlName="fechaInicio" class="form-control">
+              </div>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-4">
+              <div class="form-group">
+                <label>Fecha final</label>
+                <input type="date" formControlName="fechaFin" class="form-control">
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-4">
+              <button type="submit" class="btn waves-effect waves-light btn-rounded btn-warning m-t-30 m-b-20">Filtrar Ingreso</button>
+            </div>
+          </div>
+        </form>
         <div class="table-responsive">
           <table class="table color-table warning-table">
             <thead>
-                <tr>
-                    <th>Ingreso</th>
-                    <th>Valor</th>
-                    <th>Tipo</th>
-                    <th>Comentario</th>
-                    <th>Fecha</th>
-                    <th>Acciones</th>
-                </tr>
+              <tr>
+                <th>Ingreso</th>
+                <th>Valor</th>
+                <th>Tipo</th>
+                <th>Comentario</th>
+                <th>Fecha</th>
+                <th>Acciones</th>
+              </tr>
             </thead>
             <tbody>
-                <tr *ngFor=" let ingreso of ingresos " >
-                    <td> {{ingreso.id_ingre}}</td>
-                    <td> {{ingreso.valor_ingre | currency: 'USD'}} </td>
-                    <td *ngIf="ingreso.pago_credito_ingre == 1" ><small class="label label-primary tipoIngre">Crédito</small></td>
-                    <td *ngIf="ingreso.pago_credito_ingre == 0" ><small class="label label-warning tipoIngre">Ingreso</small></td>
-                    <td> {{ingreso.comentario_ingre}} </td>
-                    <td> {{ingreso.fecha_ingre | date: 'dd/MM/yyyy'}} </td>
-                    <td style="display: flex;">
-                      <span (click)="modalEditarIngreso(ingreso)" data-toggle="modal" data-target="#modalEditarIngreso" class="cursor label label-success">Editar</span>
-                      &nbsp;
-                      <span (click)="EliminarIngreso(ingreso.id_ingre)" class="cursor label label-danger">Eliminar</span>
-                    </td>
-                </tr>
-                
+              <tr *ngFor=" let ingreso of ingresos " >
+                <td> {{ingreso.id_ingre}}</td>
+                <td> {{ingreso.valor_ingre | currency: 'USD'}} </td>
+                <td *ngIf="ingreso.pago_credito_ingre == 1" ><small class="label label-primary tipoIngre">Crédito</small></td>
+                <td *ngIf="ingreso.pago_credito_ingre == 0" ><small class="label label-warning tipoIngre">Ingreso</small></td>
+                <td> {{ingreso.comentario_ingre}} </td>
+                <td> {{ingreso.fecha_ingre | date: 'dd/MM/yyyy'}} </td>
+                <td style="display: flex;">
+                  <span (click)="modalEditarIngreso(ingreso)" data-toggle="modal" data-target="#modalEditarIngreso" class="cursor label label-success">Editar</span>
+                  &nbsp;
+                  <span (click)="EliminarIngreso(ingreso.id_ingre)" class="cursor label label-danger">Eliminar</span>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
