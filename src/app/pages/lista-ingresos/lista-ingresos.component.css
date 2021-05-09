@@ -8,3 +8,23 @@ tbody td span{
   font-size: 11px;
   padding: 3px 5px;
 }
+
+.spanTotal{
+  position: absolute;
+  font-size: 13px;
+  right: 29px;
+  top: 15px;
+}
+
+
+/*================================================*/
+/*============ RESPONSIVE MÓVIL  =================*/
+
+@media screen and (max-width: 520px) {
+  .spanTotal{
+    position: relative;
+    font-size: 14px;
+    right: 0;
+    top: 0;
+  }
+}

@@ -19,7 +19,8 @@
     <div class="card">
       <div class="card-body">
         <!-- Formulario para filtrar por fechas -->
-        <h4 class="card-title">Filtre los egresos por fechas</h4>
+        <h4 class="card-title">Filtre los egresos por fechas </h4>
+        <span class="spanTotal">Total gastos: {{sumaEgresos | currency: 'USD'}}</span>
         <form [formGroup]="formFiltroFechas" (submit)="consultarFechasEgresos()" class="form-material m-t-40">
           <div class="row">
             <div class="col-lg-5 col-md-5 col-sm-4">

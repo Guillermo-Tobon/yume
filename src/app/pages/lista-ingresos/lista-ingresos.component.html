@@ -20,6 +20,7 @@
       <div class="card-body">
         <!-- Formulario para filtrar por fechas -->
         <h4 class="card-title">Filtre los ingresos por fechas</h4>
+        <span class="spanTotal">Total ingresos: {{sumaIngresos | currency: 'USD'}}</span>
         <form [formGroup]="formFiltroFechas" (submit)="consultarFechasIngresos()" class="form-material m-t-40">
           <div class="row">
             <div class="col-lg-5 col-md-5 col-sm-4">

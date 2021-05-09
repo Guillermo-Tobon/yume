@@ -19,6 +19,7 @@ export class ListaEgresosComponent implements OnInit {
   public formFiltroFechas:FormGroup;
   public formSubmitted:boolean = false;
   public idUsuario:any;
+  public sumaEgresos:number = 0;
 
   constructor(
               private routeActive: ActivatedRoute,
@@ -46,9 +47,10 @@ export class ListaEgresosComponent implements OnInit {
   * @param idUs => ID del usuario
   */
  public getEgresosById = (idUs:any) =>{
-  this.finanzasServ.getEgresosByIdService(idUs).subscribe( (resp:any) =>{
+  this.finanzasServ.getEgresosByIdService(idUs).subscribe( async(resp:any) =>{
 
-    this.egresos = resp.egresos || [];
+    this.egresos = await resp.egresos || [];
+    this.sumaValores(this.egresos);
 
   }, (err) =>{
     console.log(err);
@@ -191,10 +193,12 @@ export class ListaEgresosComponent implements OnInit {
       return;
     }
 
-    this.finanzasServ.filterFechasEgreService(this.idUsuario, this.formFiltroFechas.value).subscribe( (resp:any) =>{
+    this.sumaEgresos = 0;
+    this.finanzasServ.filterFechasEgreService(this.idUsuario, this.formFiltroFechas.value).subscribe( async(resp:any) =>{
 
       
-      this.egresos = resp.egresos || [];
+      this.egresos = await resp.egresos || [];
+      this.sumaValores(this.egresos);
 
     }, (err) =>{ 
       if (err.error.error === 'No hay registros.') {
@@ -221,6 +225,18 @@ export class ListaEgresosComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  /**
+   * Método que suma los valores
+   * @param obj => Objeto con datos de consulta
+   */
+  public sumaValores = (obj:any) =>{
+    obj.forEach( (item:any) =>{
+      if(item.prestamo_egre == 0){
+        this.sumaEgresos += item.valor_egre;
+      }
+    })
   }
 
 

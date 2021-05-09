@@ -20,6 +20,7 @@ export class ListaIngresosComponent implements OnInit {
   public formFiltroFechas:FormGroup;
   public formSubmitted:boolean = false;
   public idUsuario:any;
+  public sumaIngresos:number = 0;
 
   constructor(
               private finanzasServ: FinanzasService,
@@ -48,6 +49,8 @@ export class ListaIngresosComponent implements OnInit {
     this.finanzasServ.getIngresosByIdService(idUs).subscribe( (resp:any) =>{
 
       this.ingresos = resp.ingresos || [];
+      console.log(this.ingresos)
+      this.sumaValores(this.ingresos);
 
     }, (err) =>{ console.error(err)})
   }
@@ -201,10 +204,11 @@ export class ListaIngresosComponent implements OnInit {
       return;
     }
 
-    this.finanzasServ.filterFechasIngreService(this.idUsuario, this.formFiltroFechas.value).subscribe( (resp:any) =>{
+    this.sumaIngresos = 0;
+    this.finanzasServ.filterFechasIngreService(this.idUsuario, this.formFiltroFechas.value).subscribe( async(resp:any) =>{
 
-      
-      this.ingresos = resp.ingresos || [];
+      this.ingresos = await resp.ingresos || [];
+      this.sumaValores(this.ingresos);
 
     }, (err) =>{ 
       if (err.error.error === 'No hay registros.') {
@@ -215,7 +219,19 @@ export class ListaIngresosComponent implements OnInit {
       }
     })
 
+  }
 
+
+  /**
+   * Método que suma los valores
+   * @param obj => Objeto con datos de consulta
+   */
+   public sumaValores = (obj:any) =>{
+    obj.forEach( (item:any) =>{
+      if(item.pago_credito_ingre == 0){
+        this.sumaIngresos += item.valor_ingre;
+      }
+    })
   }
 
 
